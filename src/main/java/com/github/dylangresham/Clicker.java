@@ -117,10 +117,7 @@ public class Clicker extends Application
         openTasks.setId("openTasks");
         toolBar.getChildren().addAll(runTasks, clearTasks, saveTasks, openTasks);
 
-        newTask.setOnAction(e -> {
-
-        });
-
+        newTask.setOnAction(e -> NewTaskBox.display());
 
         primStage.setScene(primScene);
         primStage.show();

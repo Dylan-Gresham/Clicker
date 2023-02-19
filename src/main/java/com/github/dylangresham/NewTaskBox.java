@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -33,8 +34,8 @@ public class NewTaskBox extends Clicker
         window.setResizable(false);
 
         BorderPane pane = new BorderPane();
-        HBox leftBox = new HBox();
-        HBox rightBox = new HBox();
+        VBox leftBox = new VBox();
+        VBox rightBox = new VBox();
 
         Label nameLab = new Label("Name: ");
         Label xPosLab = new Label("X Coord: ");
@@ -78,24 +79,25 @@ public class NewTaskBox extends Clicker
         Button doneButton = new Button("Done");
         doneButton.setOnAction(e -> {
             Task newTask = null;
-            if(keyField.getText() != null)
+            if(keyField.getText().length() != 0)
             {
                 newTask = new Task(KeyCode.getKeyCode(String.valueOf(keyField.getCharacters().charAt(0))));
             } else {
                 newTask = new Task(Double.parseDouble(xField.getText()), Double.parseDouble(yField.getText()), newTaskButton);
             }
 
-            if(nameField.getText() != null)
+            if(nameField.getText().length() != 0)
             {
                 newTask.setName(nameField.getText());
             }
 
-            if(descripArea.getText() != null)
+            if(descripArea.getText().length() != 0)
             {
                 newTask.setDescription(descripArea.getText());
             }
 
             list.add(newTask);
+            window.close();
         });
         Button cancelButton = new Button("Cancel");
         cancelButton.setOnAction(e -> window.close());
@@ -104,6 +106,6 @@ public class NewTaskBox extends Clicker
 
         Scene scene = new Scene(pane);
         window.setScene(scene);
-        window.showAndWait();
+        window.show();
     }    
 }

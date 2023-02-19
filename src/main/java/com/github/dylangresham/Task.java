@@ -8,9 +8,9 @@ public class Task
 {
     private double x, y;
     private MouseButton button;
-    private KeyCode keyCode;
+    // private KeyCode keyCode;
     private Robot rob;
-    private String description, name;
+    private String description, name, keyCode;
 
     
     public Task(double xPos, double yPos, MouseButton inButton)
@@ -18,7 +18,7 @@ public class Task
         x = xPos;
         y = yPos;
         button = inButton;
-        keyCode = null;
+        keyCode = "";
         description = null;
         name = null;
         rob = new Robot();
@@ -26,7 +26,7 @@ public class Task
 
     public Task(KeyCode code)
     {
-        keyCode = code;
+        keyCode = code.toString();
         x = 0.0;
         y = 0.0;
         button = MouseButton.NONE;
@@ -39,7 +39,7 @@ public class Task
     {
         if(keyCode != null)
         {
-            rob.keyType(keyCode);
+            rob.keyType(KeyCode.getKeyCode(keyCode));
         } else {
             rob.mouseMove(x, y);
             rob.mouseClick(button);
@@ -68,7 +68,7 @@ public class Task
 
     public void setKeyCode(KeyCode newCode)
     {
-        this.keyCode = newCode;
+        this.keyCode = newCode.toString();
     }
 
     public void setButton(MouseButton newButton)
@@ -101,7 +101,12 @@ public class Task
         return button;
     }
 
-    public KeyCode getCode()
+    public KeyCode getKeyCode()
+    {
+        return KeyCode.getKeyCode(keyCode);
+    }
+
+    public String getCode()
     {
         return keyCode;
     }

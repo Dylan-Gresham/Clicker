@@ -5,17 +5,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.stage.FileChooser;
 
 
@@ -43,6 +47,10 @@ public class Clicker extends Application
         list.add(new Task(0.0, 0.0, MouseButton.PRIMARY));
         list.get(0).setName("Click Corner");
         list.get(0).setDescription("Clicks to top left corner of the screen");
+
+        list.add(new Task(KeyCode.A));
+        list.get(1).setName("Type A");
+        list.get(1).setDescription("Types the letter 'A' once");
         
         TableView<Task> table = new TableView<Task>(list);
         table.setEditable(true);
@@ -50,6 +58,7 @@ public class Clicker extends Application
         table.setId("table");
 
         TableColumn<Task, Integer> orderCol = new TableColumn<Task, Integer>("Order");
+        orderCol.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Integer>(table.getItems().indexOf(column.getValue()) + 1)); // https://stackoverflow.com/questions/16384879/auto-numbered-table-rows-javafx
         TableColumn<Task, String> nameCol = new TableColumn<Task, String>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
         TableColumn<Task, String> descriptionCol = new TableColumn<Task, String>("Description");
@@ -60,15 +69,13 @@ public class Clicker extends Application
         yCol.setCellValueFactory(new PropertyValueFactory<Task, Double>("y"));
         TableColumn<Task, MouseButton> buttonCol = new TableColumn<Task, MouseButton>("Button");
         buttonCol.setCellValueFactory(new PropertyValueFactory<Task, MouseButton>("button"));
-        TableColumn<Task, KeyCode> keyCol = new TableColumn<Task, KeyCode>("Key");
-        keyCol.setCellValueFactory(new PropertyValueFactory<Task, KeyCode>("keyCode"));
+        TableColumn<Task, String> keyCol = new TableColumn<Task, String>("Key Code");
+        keyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("keyCode"));
         table.getColumns().addAll(orderCol, nameCol, xCol, yCol, buttonCol, keyCol, descriptionCol);
 
         table.setMinSize(100.0, 100.0);
 
         mainPane.setCenter(table);
-
-        
         /* New task, detect task until key combo is pressed, delete task,
         * re-order tasks (move up/move to top, move down/move to bottom)
         */

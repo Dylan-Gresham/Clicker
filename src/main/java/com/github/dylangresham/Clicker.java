@@ -76,6 +76,7 @@ public class Clicker extends Application
         table.setMinSize(100.0, 100.0);
 
         mainPane.setCenter(table);
+        
         /* New task, detect task until key combo is pressed, delete task,
         * re-order tasks (move up/move to top, move down/move to bottom)
         */
@@ -103,7 +104,15 @@ public class Clicker extends Application
         
         /* Run tasks, stop tasks, clear tasks, save task, open task */
         /* Save to txt file as a config, open a config file */
-
+        Button runTasks = new Button("Run");
+        runTasks.setId("runTasks");
+        Button clearTasks = new Button("Clear Tasks");
+        clearTasks.setId("clearTasks");
+        Button saveTasks = new Button("Save");
+        saveTasks.setId("saveTasks");
+        Button openTasks = new Button("Open");
+        openTasks.setId("openTasks");
+        toolBar.getChildren().addAll(runTasks, clearTasks, saveTasks, openTasks);
 
 
         primStage.setScene(primScene);

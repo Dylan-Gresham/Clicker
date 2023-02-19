@@ -86,11 +86,11 @@ public class Clicker extends Application
         HBox toolBar = new HBox();
         Button newTask = new Button("New");
         newTask.setId("newTask");
-        Button detectTask = new Button("Detect Task");
-        detectTask.setId("detectTask");
+        // Button detectTask = new Button("Detect Task");
+        // detectTask.setId("detectTask");
         Button deleteTask = new Button("Delete");
         deleteTask.setId("deleteTask");
-        toolBar.getChildren().addAll(newTask, detectTask, deleteTask);
+        toolBar.getChildren().addAll(newTask, deleteTask);
         mainPane.setTop(toolBar);
 
         VBox moveBar = new VBox();
@@ -118,6 +118,7 @@ public class Clicker extends Application
         toolBar.getChildren().addAll(runTasks, clearTasks, saveTasks, openTasks);
 
         newTask.setOnAction(e -> NewTaskBox.display());
+        deleteTask.setOnAction(e -> AlertBox.display());
 
         primStage.setScene(primScene);
         primStage.show();

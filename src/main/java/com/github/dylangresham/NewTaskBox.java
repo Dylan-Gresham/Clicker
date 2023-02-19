@@ -23,6 +23,9 @@ public class NewTaskBox extends Clicker
 {    
     private static MouseButton newTaskButton = MouseButton.PRIMARY;
 
+    /**
+     * Displays new Task generation Window
+     */
     public static void display()
     {
         Stage window = new Stage();

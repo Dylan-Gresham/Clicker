@@ -10,12 +10,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
@@ -76,6 +79,27 @@ public class Clicker extends Application
         /* New task, detect task until key combo is pressed, delete task,
         * re-order tasks (move up/move to top, move down/move to bottom)
         */
+        HBox toolBar = new HBox();
+        Button newTask = new Button("New");
+        newTask.setId("newTask");
+        Button detectTask = new Button("Detect Task");
+        detectTask.setId("detectTask");
+        Button deleteTask = new Button("Delete");
+        deleteTask.setId("deleteTask");
+        toolBar.getChildren().addAll(newTask, detectTask, deleteTask);
+        mainPane.setTop(toolBar);
+
+        VBox moveBar = new VBox();
+        Button moveToTop = new Button("Move Top");
+        moveToTop.setId("moveToTop");
+        Button moveUp = new Button("Move Up");
+        moveUp.setId("moveUp");
+        Button moveDown = new Button("Move Down");
+        moveDown.setId("moveDown");
+        Button moveToBottom = new Button("Move Bottom");
+        moveToBottom.setId("moveToBottom");
+        moveBar.getChildren().addAll(moveToTop, moveUp, moveDown, moveToBottom);
+        mainPane.setRight(moveBar);
         
         /* Run tasks, stop tasks, clear tasks, save task, open task */
         /* Save to txt file as a config, open a config file */

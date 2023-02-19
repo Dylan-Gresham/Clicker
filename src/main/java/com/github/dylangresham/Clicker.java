@@ -28,6 +28,9 @@ public class Clicker extends Application
     @FXML
     private static Scene primScene;
 
+    @FXML
+    protected static ObservableList<Task> list;
+
     @Override
     public void start(Stage primStage) throws Exception
     {
@@ -42,7 +45,7 @@ public class Clicker extends Application
         /* Scrollable table with Name of task, x and y locations if it's a mouse task, keys pressed
          * if it's a keyboard task, order #
          */
-        ObservableList<Task> list = FXCollections.observableArrayList();
+        list = FXCollections.observableArrayList();
         
         list.add(new Task(0.0, 0.0, MouseButton.PRIMARY));
         list.get(0).setName("Click Corner");
@@ -113,6 +116,10 @@ public class Clicker extends Application
         Button openTasks = new Button("Open");
         openTasks.setId("openTasks");
         toolBar.getChildren().addAll(runTasks, clearTasks, saveTasks, openTasks);
+
+        newTask.setOnAction(e -> {
+
+        });
 
 
         primStage.setScene(primScene);

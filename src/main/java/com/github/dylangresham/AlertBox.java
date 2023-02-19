@@ -81,4 +81,30 @@ public class AlertBox extends Clicker
         window.setScene(scene);
         window.showAndWait();
     }
+
+    /**
+     * TheNewBoston's AlertBox class with the option to be non-modal
+     * @param title Title of AlertBox to display
+     * @param message Message to display in AlertBox
+     */
+    public static void display(String title, String message, boolean modal)
+    {
+        Stage window = new Stage();
+
+        if(modal) {window.initModality(Modality.APPLICATION_MODAL);}
+        window.setTitle(title);
+        window.setMinHeight(250);
+
+        Label label = new Label(message);
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e -> window.close());
+
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, closeButton);
+        layout.setAlignment(Pos.CENTER);
+
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+    }
 }

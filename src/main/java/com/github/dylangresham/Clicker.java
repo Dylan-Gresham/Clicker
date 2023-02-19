@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
@@ -38,21 +39,34 @@ public class Clicker extends Application
          * if it's a keyboard task, order #
          */
         ObservableList<Task> list = FXCollections.observableArrayList();
+        
+        list.add(new Task(0.0, 0.0, MouseButton.PRIMARY));
+        list.get(0).setName("Click Corner");
+        list.get(0).setDescription("Clicks to top left corner of the screen");
+        
         TableView<Task> table = new TableView<Task>(list);
-        table.setEditable(false);
+        table.setEditable(true);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setId("table");
 
         TableColumn<Task, Integer> orderCol = new TableColumn<Task, Integer>("Order");
         TableColumn<Task, String> nameCol = new TableColumn<Task, String>("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
         TableColumn<Task, String> descriptionCol = new TableColumn<Task, String>("Description");
+        descriptionCol.setCellValueFactory((new PropertyValueFactory<Task, String>("description")));
         TableColumn<Task, Double> xCol = new TableColumn<Task, Double>("X");
+        xCol.setCellValueFactory(new PropertyValueFactory<Task, Double>("x"));
         TableColumn<Task, Double> yCol = new TableColumn<Task, Double>("Y");
+        yCol.setCellValueFactory(new PropertyValueFactory<Task, Double>("y"));
         TableColumn<Task, MouseButton> buttonCol = new TableColumn<Task, MouseButton>("Button");
+        buttonCol.setCellValueFactory(new PropertyValueFactory<Task, MouseButton>("button"));
         TableColumn<Task, KeyCode> keyCol = new TableColumn<Task, KeyCode>("Key");
+        keyCol.setCellValueFactory(new PropertyValueFactory<Task, KeyCode>("keyCode"));
         table.getColumns().addAll(orderCol, nameCol, xCol, yCol, buttonCol, keyCol, descriptionCol);
 
         table.setMinSize(100.0, 100.0);
 
-        mainPane.getChildren().add(table);
+        mainPane.setCenter(table);
 
         
         /* New task, detect task until key combo is pressed, delete task,

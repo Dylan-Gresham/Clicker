@@ -1,10 +1,5 @@
 package com.github.dylangresham;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
-import com.github.kwhat.jnativehook.GlobalScreen;
-import com.github.kwhat.jnativehook.NativeHookException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,6 +22,8 @@ import javafx.stage.Stage;
 public class NewTaskBox extends Clicker
 {    
     private static MouseButton newTaskButton = MouseButton.PRIMARY;
+
+    protected static double inX, inY;
 
     /**
      * Displays new Task generation Window
@@ -83,48 +80,6 @@ public class NewTaskBox extends Clicker
         rightBox.getChildren().addAll(nameField, xField, yField, buttonBox, keyField, descripArea);
         pane.setRight(rightBox);
 
-        VBox bottomBox = new VBox();
-        Button getXY = new Button("Detect (x, y)");
-        getXY.setOnAction(e -> {
-            AlertBox.display("Detect", "Click anywhere on the screen to auto-input the coordinates.", false);
-            try
-            {
-                GlobalScreen.registerNativeHook();
-            } catch(NativeHookException ex) {
-                System.exit(1);
-            }
-
-            PrintStream stdConsole = System.out;
-
-            ByteArrayOutputStream newConsole = new ByteArrayOutputStream();
-
-            System.setOut(new PrintStream(newConsole));
-            GlobalScreen.addNativeMouseListener(new GlobalMouseListener());
-            String output = System.out.toString();
-            Scanner coordScan = new Scanner(output);
-            coordScan.useDelimiter(",");
-
-            double x = 0.0; 
-            double y = 0.0;
-            while(coordScan.hasNext())
-            {
-                x = coordScan.nextDouble();
-                y = coordScan.nextDouble();
-            }
-            coordScan.close();
-            System.setOut(stdConsole);
-            
-            try
-            {
-                newConsole.close();
-            } catch(Exception exc) {
-                System.out.println("Resource leak detected.");
-            }
-
-            xField.setText(String.valueOf(x));
-            yField.setText(String.valueOf(y));
-        });
-
         HBox bottomBar = new HBox();
         Button doneButton = new Button("Done");
         doneButton.setOnAction(e -> {
@@ -152,8 +107,7 @@ public class NewTaskBox extends Clicker
         Button cancelButton = new Button("Cancel");
         cancelButton.setOnAction(e -> window.close());
         bottomBar.getChildren().addAll(doneButton, cancelButton);
-        bottomBox.getChildren().addAll(getXY, bottomBar);
-        pane.setBottom(bottomBox);
+        pane.setBottom(bottomBar);
 
         Scene scene = new Scene(pane);
         window.setScene(scene);

@@ -80,7 +80,7 @@ public class Clicker extends Application
 
         mainPane.setCenter(table);
         
-        /* New task, detect task until key combo is pressed, delete task,
+        /* Detect task until key combo is pressed,
         * re-order tasks (move up/move to top, move down/move to bottom)
         */
         HBox toolBar = new HBox();
@@ -119,6 +119,7 @@ public class Clicker extends Application
 
         newTask.setOnAction(e -> NewTaskBox.display());
         deleteTask.setOnAction(e -> AlertBox.display());
+        clearTasks.setOnAction(e -> list.clear());
 
         primStage.setScene(primScene);
         primStage.show();

@@ -2,7 +2,7 @@ package com.github.dylangresham;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+// import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -11,8 +11,8 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+// import javafx.fxml.FXMLLoader;
+// import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -242,16 +242,16 @@ public class Clicker extends Application
         primStage.show();
     }
 
-    private static void setRoot(String fxml) throws IOException
-    {
-        primScene.setRoot(loadFXML(fxml));
-    }
+    // private static void setRoot(String fxml) throws IOException
+    // {
+    //     primScene.setRoot(loadFXML(fxml));
+    // }
 
-    private static Parent loadFXML(String fxml) throws IOException
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(Clicker.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
+    // private static Parent loadFXML(String fxml) throws IOException
+    // {
+    //     FXMLLoader fxmlLoader = new FXMLLoader(Clicker.class.getResource(fxml + ".fxml"));
+    //     return fxmlLoader.load();
+    // }
 
     /**
      * Swaps two tasks

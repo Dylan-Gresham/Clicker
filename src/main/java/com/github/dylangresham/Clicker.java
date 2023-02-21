@@ -1,17 +1,15 @@
 package com.github.dylangresham;
 
 import javafx.scene.robot.*;
-import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
-import java.util.function.UnaryOperator;
 
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener.Change;
+import javafx.concurrent.Service;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -38,6 +36,9 @@ public class Clicker extends Application
 
     @FXML
     protected static ObservableList<Task> list;
+
+    @FXML
+    public boolean run;
 
     @Override
     public void start(Stage primStage) throws Exception
@@ -113,24 +114,29 @@ public class Clicker extends Application
         moveBar.getChildren().addAll(moveToTop, moveUp, moveDown, moveToBottom);
         mainPane.setRight(moveBar);
         
-        /* Run tasks, stop tasks, clear tasks, save task, open task */
+        /* Stop tasks, clear tasks, save task, open task */
         /* Save to txt file as a config, open a config file */
         Button runTasks = new Button("Run");
         runTasks.setId("runTasks");
+        Button stopTasks = new Button("Stop");
+        stopTasks.setId("stopTasks");
         Label numRunsLab = new Label("Iterations:");
         numRunsLab.setId("numRunsLab");
         TextField numRuns = new TextField();
         numRuns.setId("numRuns");
         numRuns.setMaxWidth(82.0);
         numRuns.setText("1");
-        numRuns.setTextFormatter(new TextFormatter<Integer>(new IntegerStringConverter(), 0 , new PosIntFilter()));
+        numRuns.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.matches("\\d*")) return;
+            numRuns.setText(newValue.replaceAll("[^\\d]", ""));
+        });
         Button clearTasks = new Button("Clear Tasks");
         clearTasks.setId("clearTasks");
         Button saveTasks = new Button("Save");
         saveTasks.setId("saveTasks");
         Button openTasks = new Button("Open");
         openTasks.setId("openTasks");
-        toolBar.getChildren().addAll(runTasks, numRunsLab, numRuns, clearTasks, saveTasks, openTasks);
+        toolBar.getChildren().addAll(runTasks, stopTasks, numRunsLab, numRuns, clearTasks, saveTasks, openTasks);
 
         newTask.setOnAction(e -> NewTaskBox.display());
         deleteTask.setOnAction(e -> AlertBox.display());
@@ -141,12 +147,16 @@ public class Clicker extends Application
         runTasks.setOnAction(e -> {
             for(int i = 0; i < Integer.parseInt(numRuns.getText()); i++)
             {
-                for(int j = 0; j < list.size(); j++)
+                if(run)
                 {
-                  list.get(j).executeTask();
-                }
+                    for(int j = 0; j < list.size(); j++)
+                    {
+                      list.get(j).executeTask();
+                    }
+                } else break;
             }
         });
+        stopTasks.setOnAction(e -> run = false);
 
         primStage.setScene(primScene);
         primStage.show();

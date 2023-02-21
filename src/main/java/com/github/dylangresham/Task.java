@@ -57,6 +57,14 @@ public class Task
             } catch(Exception exc) {
                 System.exit(1);
             }
+        } else if(button == MouseButton.NONE) {
+            rob.mouseMove(x, y);
+            try
+            {
+                Thread.sleep(delay);
+            } catch(Exception exc) {
+                System.exit(1);
+            }
         } else {
             rob.mouseMove(x, y);
             rob.mouseClick(button);

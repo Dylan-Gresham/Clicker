@@ -3,7 +3,12 @@ package com.github.dylangresham;
 import javafx.scene.robot.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -36,9 +41,6 @@ public class Clicker extends Application
 
     @FXML
     protected static ObservableList<Task> list;
-
-    @FXML
-    public boolean run;
 
     @Override
     public void start(Stage primStage) throws Exception
@@ -114,12 +116,10 @@ public class Clicker extends Application
         moveBar.getChildren().addAll(moveToTop, moveUp, moveDown, moveToBottom);
         mainPane.setRight(moveBar);
         
-        /* Stop tasks, clear tasks, save task, open task */
+        /* Stop tasks, save task, open task */
         /* Save to txt file as a config, open a config file */
         Button runTasks = new Button("Run");
         runTasks.setId("runTasks");
-        Button stopTasks = new Button("Stop");
-        stopTasks.setId("stopTasks");
         Label numRunsLab = new Label("Iterations:");
         numRunsLab.setId("numRunsLab");
         TextField numRuns = new TextField();
@@ -136,7 +136,7 @@ public class Clicker extends Application
         saveTasks.setId("saveTasks");
         Button openTasks = new Button("Open");
         openTasks.setId("openTasks");
-        toolBar.getChildren().addAll(runTasks, stopTasks, numRunsLab, numRuns, clearTasks, saveTasks, openTasks);
+        toolBar.getChildren().addAll(runTasks, numRunsLab, numRuns, clearTasks, saveTasks, openTasks);
 
         newTask.setOnAction(e -> NewTaskBox.display());
         deleteTask.setOnAction(e -> AlertBox.display());
@@ -147,16 +147,81 @@ public class Clicker extends Application
         runTasks.setOnAction(e -> {
             for(int i = 0; i < Integer.parseInt(numRuns.getText()); i++)
             {
-                if(run)
-                {
-                    for(int j = 0; j < list.size(); j++)
-                    {
-                      list.get(j).executeTask();
-                    }
-                } else break;
+               for(int j = 0; j < list.size(); j++)
+               {
+                 list.get(j).executeTask();
+               }
             }
         });
-        stopTasks.setOnAction(e -> run = false);
+
+        FileChooser.ExtensionFilter  extFilter = new FileChooser.ExtensionFilter("Text files", "*.txt");
+        saveTasks.setOnAction(e -> {
+            FileChooser filer = new FileChooser();
+            filer.getExtensionFilters().add(extFilter);
+            File file = filer.showSaveDialog(primStage);
+        
+            if(file != null)
+            {
+                try
+                {
+                    PrintWriter writer = new PrintWriter(file);
+                    for(int i = 0; i < list.size(); i++)
+                    {
+                        writer.println(list.get(i).getName() + "," + list.get(i).getX() + "," + list.get(i).getY() + ","
+                                       + list.get(i).getButton().toString() + "," + list.get(i).getCode() + ","
+                                       + list.get(i).getDescription());
+
+                        writer.close();
+                    }
+                    writer.close();
+                } catch(FileNotFoundException  excp) {
+                    System.err.println("File not found");
+                }
+            }
+        });
+
+        openTasks.setOnAction(e -> {
+            FileChooser filer = new FileChooser();
+            filer.getExtensionFilters().add(extFilter);
+            File file = filer.showOpenDialog(primStage);
+
+            if(file != null)
+            {
+                try
+                {
+                    Scanner fileScan = new Scanner(file);
+                    while(fileScan.hasNextLine())
+                    {
+                        Scanner lineScan = new Scanner(fileScan.nextLine());
+                        lineScan.useDelimiter(",");
+
+                        String name = lineScan.next();
+                        double x = Double.parseDouble(lineScan.next());
+                        double y = Double.parseDouble(lineScan.next());
+                        MouseButton button = MouseButton.valueOf(lineScan.next());
+                        String keyCode = lineScan.next();
+                        String description = lineScan.next();
+                        // While loop for description in case it has comma's in it
+                        while(lineScan.hasNext())
+                        {
+                            description += ", " + lineScan.next();
+                        }
+                        lineScan.close();
+
+                        Task task = new Task();
+                        if(!name.equals("")) task.setName(name);
+                        task.setX(x);
+                        task.setY(y);
+                        task.setButton(button);
+                        if(!keyCode.equals("")) task.setKeyCode(KeyCode.getKeyCode(keyCode));
+                        if(!description.equals("")) task.setDescription(description);
+                    }
+                    fileScan.close();
+                } catch(FileNotFoundException excpe) {
+                    System.err.println("File not found");
+                }
+            }
+        });
 
         primStage.setScene(primScene);
         primStage.show();

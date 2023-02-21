@@ -35,6 +35,17 @@ public class Task
         rob = new Robot();
     }
 
+    public Task()
+    {
+        keyCode = "";
+        x = 0.0;
+        y = 0.0;
+        button = MouseButton.PRIMARY;
+        description = "";
+        name = "";
+        rob = new Robot();
+    }
+
     public void executeTask()
     {
         if(!keyCode.equals(""))

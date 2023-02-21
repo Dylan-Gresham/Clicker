@@ -1,18 +1,25 @@
 package com.github.dylangresham;
 
 import javafx.scene.robot.*;
+import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
+import java.util.function.UnaryOperator;
+
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ListChangeListener.Change;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
@@ -20,6 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 import javafx.stage.FileChooser;
 
 
@@ -47,13 +55,13 @@ public class Clicker extends Application
          */
         list = FXCollections.observableArrayList();
         
-        list.add(new Task(0.0, 0.0, MouseButton.PRIMARY));
+        list.add(new Task(100.0, 300.0, MouseButton.PRIMARY));
         list.get(0).setName("Click Corner");
         list.get(0).setDescription("Clicks to top left corner of the screen");
 
         list.add(new Task(KeyCode.A));
-        list.get(1).setName("Type A");
-        list.get(1).setDescription("Types the letter 'A' once");
+        list.get(1).setName("Type a");
+        list.get(1).setDescription("Types the letter 'a' once");
         
         TableView<Task> table = new TableView<Task>(list);
         table.setEditable(true);
@@ -109,17 +117,38 @@ public class Clicker extends Application
         /* Save to txt file as a config, open a config file */
         Button runTasks = new Button("Run");
         runTasks.setId("runTasks");
+        Label numRunsLab = new Label("Iterations:");
+        numRunsLab.setId("numRunsLab");
+        TextField numRuns = new TextField();
+        numRuns.setId("numRuns");
+        numRuns.setText("1");
+        numRuns.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue.matches("\\d*")) return;
+            numRuns.setText(newValue.replaceAll("[^\\d]", ""));
+        });
         Button clearTasks = new Button("Clear Tasks");
         clearTasks.setId("clearTasks");
         Button saveTasks = new Button("Save");
         saveTasks.setId("saveTasks");
         Button openTasks = new Button("Open");
         openTasks.setId("openTasks");
-        toolBar.getChildren().addAll(runTasks, clearTasks, saveTasks, openTasks);
+        toolBar.getChildren().addAll(runTasks, numRunsLab, numRuns, clearTasks, saveTasks, openTasks);
 
         newTask.setOnAction(e -> NewTaskBox.display());
         deleteTask.setOnAction(e -> AlertBox.display());
-        clearTasks.setOnAction(e -> list.clear());
+        clearTasks.setOnAction(e -> {
+            list.clear();
+            numRuns.setText("1");
+        });
+        runTasks.setOnAction(e -> {
+            for(int i = 0; i < Integer.parseInt(numRuns.getText()); i++)
+            {
+                for(int j = 0; j < list.size(); j++)
+                {
+                    list.get(j).executeTask();
+                }
+            }
+        });
 
         primStage.setScene(primScene);
         primStage.show();

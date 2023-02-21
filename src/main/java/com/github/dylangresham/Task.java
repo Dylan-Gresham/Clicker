@@ -37,7 +37,7 @@ public class Task
 
     public void executeTask()
     {
-        if(keyCode != null)
+        if(!keyCode.equals(""))
         {
             rob.keyType(KeyCode.getKeyCode(keyCode));
         } else {

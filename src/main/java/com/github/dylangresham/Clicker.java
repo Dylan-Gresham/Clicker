@@ -1,9 +1,5 @@
 package com.github.dylangresham;
 
-import javafx.scene.robot.*;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,7 +10,8 @@ import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,16 +19,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 
 public class Clicker extends Application
@@ -53,9 +48,6 @@ public class Clicker extends Application
         primScene = new Scene(mainPane);
         primScene.getStylesheets().add(getClass().getResource("Clicker.css").toExternalForm());
 
-        /* Scrollable table with Name of task, x and y locations if it's a mouse task, keys pressed
-         * if it's a keyboard task, order #
-         */
         list = FXCollections.observableArrayList();
         
         list.add(new Task(100.0, 300.0, MouseButton.PRIMARY));
@@ -91,9 +83,7 @@ public class Clicker extends Application
 
         mainPane.setCenter(table);
         
-        /* Detect task until key combo is pressed,
-        * re-order tasks (move up/move to top, move down/move to bottom)
-        */
+        // Detect task until key combo is pressed
         HBox toolBar = new HBox();
         Button newTask = new Button("New");
         newTask.setId("newTask");
@@ -222,13 +212,37 @@ public class Clicker extends Application
             }
         });
 
+        moveToBottom.setOnAction(e -> {
+            Task task = table.getSelectionModel().getSelectedItem();
+            for(int i = list.indexOf(task); i < list.size() - 1; i++)
+            {
+                swap(list.get(i), i + 1);
+            }
+        });
+
+        moveDown.setOnAction(e -> {
+            Task task = table.getSelectionModel().getSelectedItem();
+            swap(task, list.indexOf(task) + 1);
+        });
+
+        moveUp.setOnAction(e -> {
+            Task task = table.getSelectionModel().getSelectedItem();
+            swap(task, list.indexOf(task) - 1);
+        });
+
+        moveToTop.setOnAction(e -> {
+            Task task = table.getSelectionModel().getSelectedItem();
+            for(int i = list.indexOf(task); i >= 0; i--)
+            {
+                swap(list.get(i), i - 1);
+            }
+        });
+
         primStage.setScene(primScene);
         primStage.show();
     }
 
-    private 
-
-    static void setRoot(String fxml) throws IOException
+    private static void setRoot(String fxml) throws IOException
     {
         primScene.setRoot(loadFXML(fxml));
     }
@@ -237,6 +251,19 @@ public class Clicker extends Application
     {
         FXMLLoader fxmlLoader = new FXMLLoader(Clicker.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+
+    /**
+     * Swaps two tasks
+     * @param oldTask - The task that is being moved
+     * @param newIdx - The index of the task to swap with
+     */
+    private static void swap(Task oldTask, int newIdx)
+    {
+        int oldIdx = list.indexOf(oldTask);
+        Task tempTask = list.get(list.size() - 1);
+        list.set(list.size() - 1, oldTask);
+        list.set(oldIdx, tempTask);
     }
 
     public static void main(String[] args)

@@ -170,8 +170,6 @@ public class Clicker extends Application
                         writer.println(list.get(i).getName() + "," + list.get(i).getX() + "," + list.get(i).getY() + ","
                                        + list.get(i).getButton().toString() + "," + list.get(i).getCode() + ","
                                        + list.get(i).getDescription());
-
-                        writer.close();
                     }
                     writer.close();
                 } catch(FileNotFoundException  excp) {
@@ -189,6 +187,7 @@ public class Clicker extends Application
             {
                 try
                 {
+                    list.clear();
                     Scanner fileScan = new Scanner(file);
                     while(fileScan.hasNextLine())
                     {
@@ -215,6 +214,7 @@ public class Clicker extends Application
                         task.setButton(button);
                         if(!keyCode.equals("")) task.setKeyCode(KeyCode.getKeyCode(keyCode));
                         if(!description.equals("")) task.setDescription(description);
+                        list.add(task);
                     }
                     fileScan.close();
                 } catch(FileNotFoundException excpe) {

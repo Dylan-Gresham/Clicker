@@ -116,8 +116,7 @@ public class Clicker extends Application
         moveBar.getChildren().addAll(moveToTop, moveUp, moveDown, moveToBottom);
         mainPane.setRight(moveBar);
         
-        /* Stop tasks, save task, open task */
-        /* Save to txt file as a config, open a config file */
+        // Stop tasks
         Button runTasks = new Button("Run");
         runTasks.setId("runTasks");
         Label numRunsLab = new Label("Iterations:");

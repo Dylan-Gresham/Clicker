@@ -28,7 +28,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
 public class Clicker extends Application
 {
     @FXML

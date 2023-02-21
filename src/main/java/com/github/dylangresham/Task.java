@@ -46,14 +46,26 @@ public class Task
         rob = new Robot();
     }
 
-    public void executeTask()
+    public void executeTask(long delay)
     {
         if(!keyCode.equals(""))
         {
             rob.keyType(KeyCode.getKeyCode(keyCode));
+            try
+            {
+                Thread.sleep(delay);
+            } catch(Exception exc) {
+                System.exit(1);
+            }
         } else {
             rob.mouseMove(x, y);
             rob.mouseClick(button);
+            try
+            {
+                Thread.sleep(delay);
+            } catch(Exception exc) {
+                System.exit(1);
+            }
         }
     }
 

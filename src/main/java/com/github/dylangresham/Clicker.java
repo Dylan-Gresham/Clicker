@@ -137,7 +137,7 @@ public class Clicker extends Application
             {
                for(int j = 0; j < list.size(); j++)
                {
-                 list.get(j).executeTask();
+                 list.get(j).executeTask(5000);
                }
             }
         });

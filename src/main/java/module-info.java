@@ -1,5 +1,5 @@
 module com.github.dylangresham {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
     requires transitive javafx.graphics;
 

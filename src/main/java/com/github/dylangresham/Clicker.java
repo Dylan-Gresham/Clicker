@@ -121,11 +121,9 @@ public class Clicker extends Application
         numRunsLab.setId("numRunsLab");
         TextField numRuns = new TextField();
         numRuns.setId("numRuns");
+        numRuns.setMaxWidth(82.0);
         numRuns.setText("1");
-        numRuns.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.matches("\\d*")) return;
-            numRuns.setText(newValue.replaceAll("[^\\d]", ""));
-        });
+        numRuns.setTextFormatter(new TextFormatter<Integer>(new IntegerStringConverter(), 0 , new PosIntFilter()));
         Button clearTasks = new Button("Clear Tasks");
         clearTasks.setId("clearTasks");
         Button saveTasks = new Button("Save");

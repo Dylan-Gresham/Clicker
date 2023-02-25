@@ -11,6 +11,7 @@ public class Task
     // private KeyCode keyCode;
     private Robot rob;
     private String description, name, keyCode;
+    private Long delay;
 
     
     public Task(double xPos, double yPos, MouseButton inButton)
@@ -22,6 +23,19 @@ public class Task
         description = null;
         name = null;
         rob = new Robot();
+        delay = Long.valueOf(0);
+    }
+
+    public Task(double xPos, double yPos, MouseButton inButton, long newDelay)
+    {
+        x = xPos;
+        y = yPos;
+        button = inButton;
+        keyCode = "";
+        description = null;
+        name = null;
+        rob = new Robot();
+        delay = newDelay;
     }
 
     public Task(KeyCode code)
@@ -33,6 +47,19 @@ public class Task
         description = null;
         name = null;
         rob = new Robot();
+        delay = Long.valueOf(0);
+    }
+
+    public Task(KeyCode code, long newDelay)
+    {
+        keyCode = code.toString();
+        x = 0.0;
+        y = 0.0;
+        button = MouseButton.NONE;
+        description = null;
+        name = null;
+        rob = new Robot();
+        delay = newDelay;
     }
 
     public Task()
@@ -44,6 +71,7 @@ public class Task
         description = "";
         name = "";
         rob = new Robot();
+        delay = Long.valueOf(0);
     }
 
     public void executeTask(long delay)
@@ -107,6 +135,11 @@ public class Task
         this.button = newButton;
     }
 
+    public void setDelay(Long newDelay)
+    {
+        this.delay = newDelay;
+    }
+
     public String getName()
     {
         return name;
@@ -140,5 +173,10 @@ public class Task
     public String getCode()
     {
         return keyCode; 
+    }
+
+    public Long getDelay()
+    {
+        return delay;
     }
 }

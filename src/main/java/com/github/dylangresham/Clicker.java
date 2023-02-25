@@ -76,7 +76,9 @@ public class Clicker extends Application
         buttonCol.setCellValueFactory(new PropertyValueFactory<Task, MouseButton>("button"));
         TableColumn<Task, String> keyCol = new TableColumn<Task, String>("Key Code");
         keyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("keyCode"));
-        table.getColumns().addAll(orderCol, nameCol, xCol, yCol, buttonCol, keyCol, descriptionCol);
+        TableColumn<Task, Long> delayCol = new TableColumn<Task, Long>("Delay");
+        delayCol.setCellValueFactory(new PropertyValueFactory<Task, Long>("delay"));
+        table.getColumns().addAll(orderCol, nameCol, xCol, yCol, buttonCol, keyCol, descriptionCol, delayCol);
 
         table.setMinSize(100.0, 100.0);
 
@@ -88,9 +90,11 @@ public class Clicker extends Application
         newTask.setId("newTask");
         // Button detectTask = new Button("Detect Task");
         // detectTask.setId("detectTask");
+        Button editTask = new Button("Edit");
+        editTask.setId("editTask");
         Button deleteTask = new Button("Delete");
         deleteTask.setId("deleteTask");
-        toolBar.getChildren().addAll(newTask, deleteTask);
+        toolBar.getChildren().addAll(newTask, editTask, deleteTask);
         mainPane.setTop(toolBar);
 
         VBox moveBar = new VBox();
@@ -127,6 +131,58 @@ public class Clicker extends Application
         toolBar.getChildren().addAll(runTasks, numRunsLab, numRuns, clearTasks, saveTasks, openTasks);
 
         newTask.setOnAction(e -> NewTaskBox.display());
+        editTask.setOnAction(e -> {
+            Task task = table.getSelectionModel().getSelectedItem();
+            String name, description, code;
+            MouseButton button;
+            double x, y;
+            Long delay;
+
+            if(task.getName() != null)
+            {
+                name = task.getName();
+            } else {
+                name = "";
+            }
+            if(task.getDescription() != null)
+            {
+                description = task.getDescription();
+            } else {
+                description = "";
+            }
+            if(task.getButton() != null)
+            {
+                button = task.getButton();
+            } else {
+                button = MouseButton.NONE;
+            }
+            if(task.getX() != 0.0)
+            {
+                x = task.getX();
+            } else {
+                x = 0.0;
+            }
+            if(task.getY() != 0.0)
+            {
+                y = task.getY();
+            } else {
+                y = 0.0;
+            }
+            if(task.getCode() != null)
+            {
+                code = task.getCode();
+            } else {
+                code = "";
+            }
+            if(task.getDelay() != null)
+            {
+                delay = task.getDelay();
+            } else {
+                delay = Long.valueOf("0");
+            }
+
+            NewTaskBox.display(name, description, x, y, code, button, delay);
+        });
         deleteTask.setOnAction(e -> AlertBox.display());
         clearTasks.setOnAction(e -> {
             list.clear();
@@ -213,10 +269,8 @@ public class Clicker extends Application
 
         moveToBottom.setOnAction(e -> {
             Task task = table.getSelectionModel().getSelectedItem();
-            for(int i = list.indexOf(task); i < list.size() - 1; i++)
-            {
-                swap(list.get(i), i + 1);
-            }
+            list.remove(task);
+            list.add(task);
         });
 
         moveDown.setOnAction(e -> {
@@ -231,10 +285,8 @@ public class Clicker extends Application
 
         moveToTop.setOnAction(e -> {
             Task task = table.getSelectionModel().getSelectedItem();
-            for(int i = list.indexOf(task); i >= 0; i--)
-            {
-                swap(list.get(i), i - 1);
-            }
+            list.remove(task);
+            list.add(0, task);
         });
 
         primStage.setScene(primScene);
@@ -254,14 +306,15 @@ public class Clicker extends Application
 
     /**
      * Swaps two tasks
+     * 
      * @param oldTask - The task that is being moved
      * @param newIdx - The index of the task to swap with
      */
     private static void swap(Task oldTask, int newIdx)
     {
         int oldIdx = list.indexOf(oldTask);
-        Task tempTask = list.get(list.size() - 1);
-        list.set(list.size() - 1, oldTask);
+        Task tempTask = list.get(newIdx);
+        list.set(newIdx, oldTask);
         list.set(oldIdx, tempTask);
     }
 

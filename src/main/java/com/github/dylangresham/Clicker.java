@@ -133,6 +133,7 @@ public class Clicker extends Application
         newTask.setOnAction(e -> NewTaskBox.display());
         editTask.setOnAction(e -> {
             Task task = table.getSelectionModel().getSelectedItem();
+            int index = list.indexOf(task);
             String name, description, code;
             MouseButton button;
             double x, y;
@@ -181,7 +182,7 @@ public class Clicker extends Application
                 delay = Long.valueOf("0");
             }
 
-            NewTaskBox.display(name, description, x, y, code, button, delay);
+            NewTaskBox.display(name, description, x, y, code, button, delay, index);
         });
         deleteTask.setOnAction(e -> AlertBox.display());
         clearTasks.setOnAction(e -> {

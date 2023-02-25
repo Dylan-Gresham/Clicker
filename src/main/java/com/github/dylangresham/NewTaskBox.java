@@ -195,7 +195,7 @@ public class NewTaskBox extends Clicker
     /**
      * Displays new Task generation Window
      */
-    public static void display(String name, String description, double x,double y, String code, MouseButton button, Long delay)
+    public static void display(String name, String description, double x,double y, String code, MouseButton button, Long delay, int index)
     {
         Stage window = new Stage();
         
@@ -349,7 +349,7 @@ public class NewTaskBox extends Clicker
                 newTask.setDelay(Long.valueOf(delayField.getText()));
             }
 
-            list.add(newTask);
+            list.set(index, newTask);
             window.close();
         });
         Button cancelButton = new Button("Cancel");

@@ -2,7 +2,7 @@ package com.github.dylangresham;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-// import java.io.IOException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -11,8 +11,9 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-// import javafx.fxml.FXMLLoader;
-// import javafx.scene.Parent;
+import javafx.geometry.Pos;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -64,20 +65,28 @@ public class Clicker extends Application
 
         TableColumn<Task, Integer> orderCol = new TableColumn<Task, Integer>("Order");
         orderCol.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Integer>(table.getItems().indexOf(column.getValue()) + 1)); // https://stackoverflow.com/questions/16384879/auto-numbered-table-rows-javafx
+        orderCol.setId("orderCol");
         TableColumn<Task, String> nameCol = new TableColumn<Task, String>("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<Task, String>("name"));
+        nameCol.setId("nameCol");
         TableColumn<Task, String> descriptionCol = new TableColumn<Task, String>("Description");
         descriptionCol.setCellValueFactory((new PropertyValueFactory<Task, String>("description")));
+        descriptionCol.setId("descriptionCol");
         TableColumn<Task, Double> xCol = new TableColumn<Task, Double>("X");
         xCol.setCellValueFactory(new PropertyValueFactory<Task, Double>("x"));
+        xCol.setId("xCol");
         TableColumn<Task, Double> yCol = new TableColumn<Task, Double>("Y");
         yCol.setCellValueFactory(new PropertyValueFactory<Task, Double>("y"));
+        yCol.setId("yCol");
         TableColumn<Task, MouseButton> buttonCol = new TableColumn<Task, MouseButton>("Button");
         buttonCol.setCellValueFactory(new PropertyValueFactory<Task, MouseButton>("button"));
+        buttonCol.setId("buttonCol");
         TableColumn<Task, String> keyCol = new TableColumn<Task, String>("Key Code");
         keyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("keyCode"));
+        keyCol.setId("keyCol");
         TableColumn<Task, Long> delayCol = new TableColumn<Task, Long>("Delay");
         delayCol.setCellValueFactory(new PropertyValueFactory<Task, Long>("delay"));
+        delayCol.setId("delayCol");
         table.getColumns().addAll(orderCol, nameCol, xCol, yCol, buttonCol, keyCol, descriptionCol, delayCol);
 
         table.setMinSize(100.0, 100.0);
@@ -95,6 +104,7 @@ public class Clicker extends Application
         Button deleteTask = new Button("Delete");
         deleteTask.setId("deleteTask");
         toolBar.getChildren().addAll(newTask, editTask, deleteTask);
+        toolBar.setAlignment(Pos.CENTER);
         mainPane.setTop(toolBar);
 
         VBox moveBar = new VBox();
@@ -107,6 +117,7 @@ public class Clicker extends Application
         Button moveToBottom = new Button("Move Bottom");
         moveToBottom.setId("moveToBottom");
         moveBar.getChildren().addAll(moveToTop, moveUp, moveDown, moveToBottom);
+        moveBar.setAlignment(Pos.CENTER);
         mainPane.setRight(moveBar);
         
         // Stop tasks
@@ -294,16 +305,16 @@ public class Clicker extends Application
         primStage.show();
     }
 
-    // private static void setRoot(String fxml) throws IOException
-    // {
-    //     primScene.setRoot(loadFXML(fxml));
-    // }
+    private static void setRoot(String fxml) throws IOException
+    {
+        primScene.setRoot(loadFXML(fxml));
+    }
 
-    // private static Parent loadFXML(String fxml) throws IOException
-    // {
-    //     FXMLLoader fxmlLoader = new FXMLLoader(Clicker.class.getResource(fxml + ".fxml"));
-    //     return fxmlLoader.load();
-    // }
+    private static Parent loadFXML(String fxml) throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(Clicker.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
 
     /**
      * Swaps two tasks

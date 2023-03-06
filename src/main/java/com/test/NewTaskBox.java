@@ -1,11 +1,16 @@
 package com.test;
 
+import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
-
+import java.io.IOException;
+import java.net.URL;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,16 +25,59 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class NewTaskBox extends Test
+public class NewTaskBox extends Test implements Initializable
 {    
     private static MouseButton newTaskButton = MouseButton.PRIMARY;
+    private ObservableList<MouseButton> buttonList = FXCollections.observableArrayList(
+        MouseButton.PRIMARY, MouseButton.SECONDARY, MouseButton.MIDDLE,
+        MouseButton.FORWARD, MouseButton.BACK, MouseButton.NONE
+    );
+
+    private static Scene scene;
+
+    private boolean params;
+    private String paramName, paramDescription, paramCode;
+    private double paramX, paramY;
+    private MouseButton paramButton;
+    private Long paramDelay;
+    private int paramIndex;
 
     protected static double inX, inY;
 
+    @FXML private Label nameLabel, xLabel, yLabel, buttonLabel, keyLabel, descriptionLabel, delayLabel;
+    @FXML private TextField nameField, xField, yField, keyField, delayField;
+    @FXML private TextArea descriptionArea;
+    @FXML private ChoiceBox<MouseButton> buttonBox;
+    @FXML private Button doneButton, cancelButton;
+
+    @Override
+    public void start(Stage primStage) throws IOException {
+        stage = primStage;
+        scene = new Scene(loadFXML("NTB"), 640, 480);
+        scene.getStylesheets().add(getClass().getResource("NTB.css").toExternalForm());
+
+        if(params)
+        {
+            nameField.setText(paramName);
+            xField.setText(String.valueOf(paramX));
+            yField.setText(String.valueOf(paramY));
+            keyField.setText(paramCode);
+            delayField.setText(String.valueOf(paramDelay));
+            descriptionArea.setText(paramDescription);
+            buttonBox.setValue(paramButton);
+        }
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    
     /**
      * Displays new Task generation Window
      */
@@ -363,5 +411,66 @@ public class NewTaskBox extends Test
         Scene scene = new Scene(pane);
         window.setScene(scene);
         window.show();
+    }
+
+    static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Test.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1)
+    {
+        // Courtesy of https://stackoverflow.com/a/33218556/18649233
+        UnaryOperator<TextFormatter.Change> modifyChange = c -> {
+            if (c.isContentChange()) {
+                int newLength = c.getControlNewText().length();
+                if (newLength > 1) {
+                    // replace the input text with the last len chars
+                    String tail = c.getControlNewText().substring(newLength - 1, newLength);
+                    c.setText(tail.toUpperCase());
+                    // replace the range to complete text
+                    // valid coordinates for range is in terms of old text
+                    int oldLength = c.getControlText().length();
+                    c.setRange(0, oldLength);
+                }
+            }
+            return c;
+        };
+        keyField.setTextFormatter(new TextFormatter<String>(modifyChange));
+
+        buttonBox.setTooltip(new Tooltip("Select button to click"));
+        buttonBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2)
+            {
+                newTaskButton = buttonList.get((int)arg2);
+            }
+        });
+    }
+
+    public void display()
+    {
+        params = false;
+        start(new Stage());
+    }
+
+    public void display(String name, String description, double x,double y, String code, MouseButton button, Long delay, int index)
+    {
+        params = true;
+        paramName = name;
+        paramDescription = description;
+        paramX = x;
+        paramY = y;
+        paramCode = code;
+        paramButton = button;
+        paramDelay = delay;
+        paramIndex = index;
+        
+        start(new Stage());
     }
 }

@@ -30,6 +30,7 @@ public class Controller extends Test implements Initializable
     @FXML private TableColumn<Task, String> descriptionCol;
     @FXML private TableColumn<Task, Long> delayCol;
     @FXML private TextField numRuns;
+    @FXML private NewTaskBox newTaskBox;
     
     @Override
     public void initialize(URL url, ResourceBundle resources)
@@ -60,7 +61,7 @@ public class Controller extends Test implements Initializable
 
     @FXML private void newTaskDisplay()
     {
-        NewTaskBox.display();
+        newTaskBox.display();
         table.getItems().setAll(list);
     }
 
@@ -116,7 +117,7 @@ public class Controller extends Test implements Initializable
             delay = Long.valueOf("0");
         }
 
-        NewTaskBox.display(name, description, x, y, code, button, delay, index);
+        newTaskBox.display(name, description, x, y, code, button, delay, index);
         table.getItems().setAll(list);
     }
 

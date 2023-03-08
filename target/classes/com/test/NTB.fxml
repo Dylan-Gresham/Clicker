@@ -9,131 +9,134 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<BorderPane fx:controller="com.test.NewTaskBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" >
-    <center>
-        <VBox alignment="CENTER" Borderpane.alignment="CENTER">
-            <HBox alignment="CENTER">
-                <padding>
-                    <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
-                </padding>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="nameLabel" text="Name: " />
-                    </children>
-                </VBox>
-                <VBox alignment ="CENTER">
-                    <children>
-                        <TextField fx:id="nameField" promptText="Name..." />
-                    </children>
-                </VBox>
+<Stage fx:id="window" fx:controller="com.test.NewTaskBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" >
+    <BorderPane >
+        <center>
+            <VBox alignment="CENTER" Borderpane.alignment="CENTER">
+                <HBox alignment="CENTER">
+                    <padding>
+                        <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
+                    </padding>
+                    <VBox alignment="CENTER">
+                        <children>
+                            <Label fx:id="nameLabel" text="Name: " />
+                        </children>
+                    </VBox>
+                    <VBox alignment ="CENTER">
+                        <children>
+                            <TextField fx:id="nameField" promptText="Name..." />
+                        </children>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <padding>
+                        <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
+                    </padding>
+                    <VBox alignment="CENTER">
+                        <children>
+                            <Label fx:id="xLabel" text="X Coord: " />
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <TextField fx:id="xField" promptText="0.0" />
+                        </children>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <padding>
+                        <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
+                    </padding>
+                    <VBox alignment="CENTER">
+                        <children>
+                            <Label fx:id="yLabel" text="Y Coord: " />
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <TextField fx:id="yField" promptText="0.0" />
+                        </children>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <padding>
+                        <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
+                    </padding>
+                    <VBox alignment="CENTER">
+                        <children>
+                            <Label fx:id="buttonLabel" text="Button: " />
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <ChoiceBox fx:id="buttonBox" value="MouseButton.PRIMARY" />
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <MouseButton fx:value="MouseButton.PRIMARY" />
+                                        <MouseButton fx:value="MouseButton.SECONDARY" />
+                                        <MouseButon fx:value="MouseButton.MIDDLE" />
+                                        <MouseButon fx:value="MouseButton.FORWARD" />
+                                        <MouseButton fx:value="MouseButton.BACK" />
+                                        <MouseButton fx:value="MouseButton.NONE" />
+                                    </FXCollections>
+                                </items>
+                        </children>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <padding>
+                        <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
+                    </padding>
+                    <VBox alignment="CENTER">
+                        <children>
+                            <Label fx:id="keyLabel" text="Key: " />
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <TextField fx:id="keyField" maxWidth="25.0" promptText="A" />
+                        </children>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <padding>
+                        <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
+                    </padding>
+                    <VBox alignment="CENTER">
+                        <children>
+                            <Label fx:id="descriptionLabel" text="Description: " />
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <TextArea fx:id="descriptionArea" promptText="Enter description..." maxWidth="150" maxHeight="100" />
+                        </children>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER">
+                    <padding>
+                        <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
+                    </padding>
+                    <VBox alignment="CENTER">
+                        <children>
+                            <Label fx:id="delayLabel" text="Delay: " />
+                        </children>
+                    </VBox>
+                    <VBox>
+                        <children>
+                            <TextField fx:id="delayField" promptText="0" />
+                        </children>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </center>
+        <bottom>
+            <HBox alignment="CENTER" BorderPane.alignment="BOTTOM">
+                <Button fx:id="doneButton" onAction="#doneButtonOnA" text="Done" />
+                <Button fx:id="cancelButton" onAction="#cancelButtonOnA" text="Cancel" />
             </HBox>
-            <HBox alignment="CENTER">
-                <padding>
-                    <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
-                </padding>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="xLabel" text="X Coord: " />
-                    </children>
-                </VBox>
-                <VBox>
-                    <children>
-                        <TextField fx:id="xField" promptText="0.0" />
-                    </children>
-                </VBox>
-            </HBox>
-            <HBox alignment="CENTER">
-                <padding>
-                    <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
-                </padding>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="yLabel" text="Y Coord: " />
-                    </children>
-                </VBox>
-                <VBox>
-                    <children>
-                        <TextField fx:id="yField" promptText="0.0" />
-                    </children>
-                </VBox>
-            </HBox>
-            <HBox alignment="CENTER">
-                <padding>
-                    <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
-                </padding>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="buttonLabel" text="Button: " />
-                    </children>
-                </VBox>
-                <VBox>
-                    <children>
-                        <ChoiceBox fx:id="buttonBox" value="MouseButton.PRIMARY" />
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <MouseButton fx:value="MouseButton.PRIMARY" />
-                                    <MouseButton fx:value="MouseButton.SECONDARY" />
-                                    <MouseButon fx:value="MouseButton.MIDDLE" />
-                                    <MouseButon fx:value="MouseButton.FORWARD" />
-                                    <MouseButton fx:value="MouseButton.BACK" />
-                                    <MouseButton fx:value="MouseButton.NONE" />
-                                </FXCollections>
-                            </items>
-                    </children>
-                </VBox>
-            </HBox>
-            <HBox alignment="CENTER">
-                <padding>
-                    <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
-                </padding>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="keyLabel" text="Key: " />
-                    </children>
-                </VBox>
-                <VBox>
-                    <children>
-                        <TextField fx:id="keyField" maxWidth="25.0" promptText="A" />
-                    </children>
-                </VBox>
-            </HBox>
-            <HBox alignment="CENTER">
-                <padding>
-                    <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
-                </padding>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="descriptionLabel" text="Description: " />
-                    </children>
-                </VBox>
-                <VBox>
-                    <children>
-                        <TextArea fx:id="descriptionArea" promptText="Enter description..." maxWidth="150" maxHeight="100" />
-                    </children>
-                </VBox>
-            </HBox>
-            <HBox alignment="CENTER">
-                <padding>
-                    <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
-                </padding>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="delayLabel" text="Delay: " />
-                    </children>
-                </VBox>
-                <VBox>
-                    <children>
-                        <TextField fx:id="delayField" promptText="0" />
-                    </children>
-                </VBox>
-            </HBox>
-        </VBox>
-    </center>
-    <bottom>
-        <HBox alignment="CENTER" BorderPane.alignment="BOTTOM">
-            <Button fx:id="doneButton" text="Done" />
-            <Button fx:id="cancelButton" text="Cancel" />
-        </HBox>
-    </bottom>
-</BorderPane>
+        </bottom>
+    </BorderPane>
+</Stage>

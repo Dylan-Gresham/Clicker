@@ -46,14 +46,16 @@ public class NewTaskBox extends Test implements Initializable
     private MouseButton paramButton;
     private Long paramDelay;
     private int paramIndex;
-
+    
     protected static double inX, inY;
-
+    
+    @FXML private Stage window;
     @FXML private Label nameLabel, xLabel, yLabel, buttonLabel, keyLabel, descriptionLabel, delayLabel;
     @FXML private TextField nameField, xField, yField, keyField, delayField;
     @FXML private TextArea descriptionArea;
     @FXML private ChoiceBox<MouseButton> buttonBox;
     @FXML private Button doneButton, cancelButton;
+    @FXML public 
 
     @Override
     public void start(Stage primStage) throws IOException {
@@ -81,7 +83,7 @@ public class NewTaskBox extends Test implements Initializable
     /**
      * Displays new Task generation Window
      */
-    public static void display()
+    public static void oldDisplay()
     {
         Stage window = new Stage();
         
@@ -245,7 +247,7 @@ public class NewTaskBox extends Test implements Initializable
     /**
      * Displays new Task generation Window
      */
-    public static void display(String name, String description, double x,double y, String code, MouseButton button, Long delay, int index)
+    public static void oldDisplay(String name, String description, double x,double y, String code, MouseButton button, Long delay, int index)
     {
         Stage window = new Stage();
         
@@ -456,7 +458,7 @@ public class NewTaskBox extends Test implements Initializable
     public void display()
     {
         params = false;
-        start(new Stage());
+        start(window);
     }
 
     public void display(String name, String description, double x,double y, String code, MouseButton button, Long delay, int index)
@@ -471,6 +473,44 @@ public class NewTaskBox extends Test implements Initializable
         paramDelay = delay;
         paramIndex = index;
         
-        start(new Stage());
+        start(window);
+    }
+
+    @FXML private void doneButtonOnA()
+    {
+        Task newTask = null;
+        if(keyField.getText().length() != 0)
+        {
+            newTask = new Task(KeyCode.getKeyCode(String.valueOf(keyField.getCharacters().charAt(0)).toUpperCase()));
+        } else {
+            newTask = new Task(Double.parseDouble(xField.getText()), Double.parseDouble(yField.getText()), newTaskButton);
+        }
+
+        if(nameField.getText().length() != 0)
+        {
+            newTask.setName(nameField.getText());
+        }
+
+        if(descriptionArea.getText().length() != 0)
+        {
+            newTask.setDescription(descriptionArea.getText());
+        }
+
+        if(delayField.getText().length() != 0)
+        {
+            newTask.setDelay(Long.valueOf(delayField.getText()));
+        }
+
+        if(params)
+        {
+            list.set(paramIndex, newTask);
+        } else {
+            list.add(newTask);
+        }
+    }
+
+    @FXML private void cancelButtonOnA()
+    {
+        window.close();
     }
 }

@@ -19,8 +19,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 
-public class NTB extends Controller
-{    
+public class ETB extends Controller
+{
     private static MouseButton newTaskButton = MouseButton.PRIMARY;
     private ObservableList<MouseButton> buttonList = FXCollections.observableArrayList(
         MouseButton.PRIMARY, MouseButton.SECONDARY, MouseButton.MIDDLE,
@@ -28,7 +28,7 @@ public class NTB extends Controller
     );
     
     protected static double inX, inY;
-
+    
     @FXML private Label nameLabel, xLabel, yLabel, buttonLabel, keyLabel, descriptionLabel, delayLabel;
     @FXML private TextField nameField, xField, yField, keyField, delayField;
     @FXML private TextArea descriptionArea;
@@ -37,7 +37,15 @@ public class NTB extends Controller
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
-    {   
+    {
+        nameField.setText(editTask.getName());
+        xField.setText(String.valueOf(editTask.getX()));
+        yField.setText(String.valueOf(editTask.getY()));
+        keyField.setText(editTask.getCode());
+        delayField.setText(String.valueOf(editTask.getDelay()));
+        buttonBox.getSelectionModel().select(editTask.getButton());
+        descriptionArea.setText(editTask.getDescription());
+        
         // Courtesy of https://stackoverflow.com/a/33218556/18649233
         UnaryOperator<TextFormatter.Change> modifyChange = c -> {
             if (c.isContentChange()) {

@@ -2,6 +2,7 @@ package com.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,7 +10,10 @@ import java.util.Scanner;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -17,7 +21,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
-import javafx.stage.Window;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class Controller extends Test implements Initializable
 {
@@ -31,8 +36,11 @@ public class Controller extends Test implements Initializable
     @FXML private TableColumn<Task, String> descriptionCol;
     @FXML private TableColumn<Task, Long> delayCol;
     @FXML private TextField numRuns;
-    @FXML private Window nTB;
-    @FXML private NTB nTBController;
+
+    private static Scene scene;
+    protected static Stage newStage;
+    protected static int index;
+    protected static Task neTask;
     
     @Override
     public void initialize(URL url, ResourceBundle resources)
@@ -61,16 +69,31 @@ public class Controller extends Test implements Initializable
         table.getItems().setAll(list);
     }
 
-    @FXML private void newTaskDisplay()
+    @FXML private void newTaskDisplay() throws IOException
     {
-        nTBController.display();
+        scene = new Scene(loadFXML("NTB"), 640, 480);
+        scene.getStylesheets().add(getClass().getResource("NTB.css").toExternalForm());
+
+        newStage = new Stage();
+
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        newStage.setTitle("New Task");
+        newStage.setMinWidth(400);
+        newStage.setMinHeight(600);
+        newStage.setResizable(false);
+        
+        newStage.setScene(scene);
+        newStage.showAndWait();
+
+        list.add(neTask);
+
         table.getItems().setAll(list);
     }
 
-    @FXML private void editTasksOnA()
+    @FXML private void editTasksOnA() throws IOException
     {
         Task task = table.getSelectionModel().getSelectedItem();
-        int index = list.indexOf(task);
+        index = list.indexOf(task);
         String name, description, code;
         MouseButton button;
         double x, y;
@@ -119,7 +142,40 @@ public class Controller extends Test implements Initializable
             delay = Long.valueOf("0");
         }
 
-        nTBController.display(name, description, x, y, code, button, delay, index);
+        editTask = new Task();
+        editTask.setButton(button);
+        editTask.setDelay(delay);
+        if(description.length() > 0)
+        {
+            editTask.setDescription(description);
+        }
+        if(code.length() > 0)
+        {
+            editTask.setKeyCode(KeyCode.getKeyCode(code));
+        }
+        if(name.length() > 0)
+        {
+            editTask.setName(name);
+        }
+        editTask.setX(x);
+        editTask.setY(y);
+
+        scene = new Scene(loadFXML("ETB"), 640, 480);
+        scene.getStylesheets().add(getClass().getResource("NTB.css").toExternalForm());
+
+        newStage = new Stage();
+
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        newStage.setTitle("Edit Task");
+        newStage.setMinWidth(400);
+        newStage.setMinHeight(600);
+        newStage.setResizable(false);
+        
+        newStage.setScene(scene);
+        newStage.showAndWait();
+
+        list.set(index, neTask);
+
         table.getItems().setAll(list);
     }
 
@@ -220,4 +276,12 @@ public class Controller extends Test implements Initializable
         }
     }
     
+    static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Test.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
+    }
 }

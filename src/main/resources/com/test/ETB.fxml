@@ -13,7 +13,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.stage.Stage?>
 
-<BorderPane fx:controller="com.test.NTB" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:controller="com.test.ETB" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
     <center>
         <VBox alignment="CENTER">
             <HBox alignment="CENTER">

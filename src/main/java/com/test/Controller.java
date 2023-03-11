@@ -179,9 +179,25 @@ public class Controller extends Test implements Initializable
         table.getItems().setAll(list);
     }
 
-    @FXML private void deleteTasksOnA()
+    @FXML private void deleteTasksOnA() throws IOException
     {
-        AlertBox.display();
+        scene = new Scene(loadFXML("DTB"), 640, 480);
+        scene.getStylesheets().add(getClass().getResource("NTB.css").toExternalForm());
+
+        newStage = new Stage();
+
+        newStage.initModality(Modality.APPLICATION_MODAL);
+        newStage.setTitle("Delete Task");
+        newStage.setMinWidth(400);
+        newStage.setMinHeight(400);
+        newStage.setResizable(false);
+        
+        newStage.setScene(scene);
+        newStage.showAndWait();
+
+        list.remove(index);
+
+        table.getItems().setAll(list);
     }
 
     @FXML private void clearTasksOnA()

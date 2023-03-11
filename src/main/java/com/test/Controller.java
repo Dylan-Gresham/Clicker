@@ -275,6 +275,77 @@ public class Controller extends Test implements Initializable
             }
         }
     }
+
+    @FXML private void moveToBottomOnA()
+    {
+        Task task = null;
+        try
+        {
+            task = table.getSelectionModel().getSelectedItem();
+            list.remove(task);
+            list.add(task);
+            table.getItems().setAll(list);
+        } catch(Exception e) {
+            System.err.println("No task selected");
+        }
+    }
+
+    @FXML private void moveDownOnA()
+    {
+        Task task = null;
+        try
+        {
+            task = table.getSelectionModel().getSelectedItem();
+            swap(task, list.indexOf(task) + 1);
+
+            table.getItems().setAll(list);
+        } catch(Exception e) {
+            System.err.println("No task selected");
+        }
+    }
+
+    @FXML private void moveUpOnA()
+    {
+        Task task = null;
+        try
+        {
+            task = table.getSelectionModel().getSelectedItem();
+            swap(task, list.indexOf(task) - 1);
+
+            table.getItems().setAll(list);
+        } catch(Exception e) {
+            System.err.println("No task selected");
+        }
+    }
+
+    @FXML private void moveToTopOnA()
+    {
+        Task task = null;
+        try
+        {
+            task = table.getSelectionModel().getSelectedItem();
+            list.remove(task);
+            list.add(0, task);
+
+            table.getItems().setAll(list);
+        } catch(Exception e) {
+            System.err.println("No task selected");
+        }
+    }
+
+    /**
+     * Swaps two tasks
+     * 
+     * @param oldTask - The task that is being moved
+     * @param newIdx - The index of the task to swap with
+     */
+    private static void swap(Task oldTask, int newIdx)
+    {
+        int oldIdx = list.indexOf(oldTask);
+        Task tempTask = list.get(newIdx);
+        list.set(newIdx, oldTask);
+        list.set(oldIdx, tempTask);
+    }
     
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));

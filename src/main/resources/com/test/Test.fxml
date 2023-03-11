@@ -47,10 +47,10 @@
    <right>
       <VBox alignment="CENTER" prefHeight="945.0" prefWidth="89.0">
          <children>
-            <Button fx:id="moveToTop" mnemonicParsing="false" text="Move Top" />
-            <Button fx:id="moveUp" mnemonicParsing="false" text="Move Up" />
-            <Button fx:id="moveDown" mnemonicParsing="false" text="Move Down" />
-            <Button fx:id="moveToBottom" mnemonicParsing="false" text="Move Bottom" />
+            <Button fx:id="moveToTop" mnemonicParsing="false" onAction="#moveToTopOnA" text="Move Top" />
+            <Button fx:id="moveUp" mnemonicParsing="false" onAction="#moveUpOnA" text="Move Up" />
+            <Button fx:id="moveDown" mnemonicParsing="false" onAction="#moveDownOnA" text="Move Down" />
+            <Button fx:id="moveToBottom" mnemonicParsing="false" onAction="#moveToBottomOnA" text="Move Bottom" />
          </children>
       </VBox>
    </right>

@@ -11,9 +11,10 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" fx:controller="com.test.Controller" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" fx:controller="com.test.Controller" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
+   <fx:include fx:id="nTB" source="NTB.fxml" />
    <center>
-      <TableView fx:id="table" prefHeight="352.0" prefWidth="543.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="table" prefHeight="352.0" prefWidth="543.0">
         <columns>
           <TableColumn fx:id="orderCol" prefWidth="75.0" text="Order" />
           <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
@@ -30,7 +31,7 @@
       </TableView>
    </center>
    <top>
-      <HBox alignment="CENTER" prefHeight="34.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="34.0" prefWidth="600.0">
          <children>
             <Button fx:id="newTask" mnemonicParsing="false" onAction="#newTaskDisplay" text="New"  />
             <Button fx:id="editTask" mnemonicParsing="false" onAction="#editTasksOnA" text="Edit" />
@@ -45,7 +46,7 @@
       </HBox>
    </top>
    <right>
-      <VBox alignment="CENTER" prefHeight="945.0" prefWidth="89.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="945.0" prefWidth="89.0">
          <children>
             <Button fx:id="moveToTop" mnemonicParsing="false" text="Move Top" />
             <Button fx:id="moveUp" mnemonicParsing="false" text="Move Up" />

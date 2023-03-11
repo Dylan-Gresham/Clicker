@@ -6,15 +6,17 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.stage.Stage?>
 
-<Stage fx:id="window" fx:controller="com.test.NewTaskBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" >
+<Stage fx:id="window" fx:controller="com.test.NTB" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" >
     <BorderPane >
         <center>
-            <VBox alignment="CENTER" Borderpane.alignment="CENTER">
+            <VBox alignment="CENTER">
                 <HBox alignment="CENTER">
                     <padding>
                         <Insets top="20.0" right="10.0" bottom="0.0" left="5.0" />
@@ -72,16 +74,6 @@
                     <VBox>
                         <children>
                             <ChoiceBox fx:id="buttonBox" value="MouseButton.PRIMARY" />
-                                <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                        <MouseButton fx:value="MouseButton.PRIMARY" />
-                                        <MouseButton fx:value="MouseButton.SECONDARY" />
-                                        <MouseButon fx:value="MouseButton.MIDDLE" />
-                                        <MouseButon fx:value="MouseButton.FORWARD" />
-                                        <MouseButton fx:value="MouseButton.BACK" />
-                                        <MouseButton fx:value="MouseButton.NONE" />
-                                    </FXCollections>
-                                </items>
                         </children>
                     </VBox>
                 </HBox>
@@ -133,7 +125,7 @@
             </VBox>
         </center>
         <bottom>
-            <HBox alignment="CENTER" BorderPane.alignment="BOTTOM">
+            <HBox alignment="CENTER">
                 <Button fx:id="doneButton" onAction="#doneButtonOnA" text="Done" />
                 <Button fx:id="cancelButton" onAction="#cancelButtonOnA" text="Cancel" />
             </HBox>

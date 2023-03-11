@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 public class Controller extends Test implements Initializable
 {
@@ -30,7 +31,8 @@ public class Controller extends Test implements Initializable
     @FXML private TableColumn<Task, String> descriptionCol;
     @FXML private TableColumn<Task, Long> delayCol;
     @FXML private TextField numRuns;
-    @FXML private NewTaskBox newTaskBox;
+    @FXML private Window nTB;
+    @FXML private NTB nTBController;
     
     @Override
     public void initialize(URL url, ResourceBundle resources)
@@ -61,7 +63,7 @@ public class Controller extends Test implements Initializable
 
     @FXML private void newTaskDisplay()
     {
-        newTaskBox.display();
+        nTBController.display();
         table.getItems().setAll(list);
     }
 
@@ -117,7 +119,7 @@ public class Controller extends Test implements Initializable
             delay = Long.valueOf("0");
         }
 
-        newTaskBox.display(name, description, x, y, code, button, delay, index);
+        nTBController.display(name, description, x, y, code, button, delay, index);
         table.getItems().setAll(list);
     }
 

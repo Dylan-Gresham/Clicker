@@ -13,7 +13,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" fx:controller="com.test.Controller" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView fx:id="table" prefHeight="352.0" prefWidth="543.0">
+      <TableView fx:id="table" prefHeight="352.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="orderCol" prefWidth="75.0" text="Order" />
           <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />

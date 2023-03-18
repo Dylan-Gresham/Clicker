@@ -105,6 +105,37 @@ public class Task
         }
     }
 
+    public void executeTask()
+    {
+        if(!keyCode.equals(""))
+        {
+            rob.keyType(KeyCode.getKeyCode(keyCode));
+            try
+            {
+                Thread.sleep(delay);
+            } catch(Exception exc) {
+                System.exit(1);
+            }
+        } else if(button == MouseButton.NONE) {
+            rob.mouseMove(x, y);
+            try
+            {
+                Thread.sleep(delay);
+            } catch(Exception exc) {
+                System.exit(1);
+            }
+        } else {
+            rob.mouseMove(x, y);
+            rob.mouseClick(button);
+            try
+            {
+                Thread.sleep(delay);
+            } catch(Exception exc) {
+                System.exit(1);
+            }
+        }
+    }
+
     public void setName(String s)
     {
         this.name = s;

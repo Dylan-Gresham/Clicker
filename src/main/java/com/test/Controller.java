@@ -20,12 +20,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Controller extends Test implements Initializable
 {
+    @FXML private BorderPane bPane;
     @FXML private TableView<Task> table;
     @FXML private TableColumn<Task, Integer> orderCol;
     @FXML private TableColumn<Task, String> nameCol;
@@ -44,7 +46,7 @@ public class Controller extends Test implements Initializable
     
     @Override
     public void initialize(URL url, ResourceBundle resources)
-    {   
+    {
         list.add(new Task(100.0, 300.0, MouseButton.PRIMARY));
         list.get(0).setName("Click Corner");
         list.get(0).setDescription("Clicks to top left corner of the screen");
@@ -65,6 +67,8 @@ public class Controller extends Test implements Initializable
         keyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("keyCode"));
         descriptionCol.setCellValueFactory((new PropertyValueFactory<Task, String>("description")));
         delayCol.setCellValueFactory(new PropertyValueFactory<Task, Long>("delay"));
+        table.prefHeightProperty().bind(stage.heightProperty());
+        table.prefWidthProperty().bind(stage.widthProperty());
 
         table.getItems().setAll(list);
     }

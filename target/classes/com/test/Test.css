@@ -18,6 +18,12 @@
     font-size: 12px;
 }
 
+.table-cell .cell-text {
+    -fx-fill: -fx-txt;
+
+    fill: -fx-txt;
+}
+
 .table-row-cell:focused, .table-row-cell:focused:even,
 .table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:even:focused:selected {
     -fx-background-color: -fx-pc, -fx-pc, -fx-pc;

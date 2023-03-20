@@ -71,24 +71,28 @@ public class Controller extends Test implements Initializable
         buttonCol.setCellValueFactory(new PropertyValueFactory<Task, MouseButton>("button"));
         keyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("keyCode"));
         descriptionCol.setCellValueFactory((new PropertyValueFactory<Task, String>("description")));
-        descriptionCol.setCellFactory(new Callback<TableColumn<Task, String>, TableCell<Task, String>>() {
-			@Override
-			public TableCell<Task, String> call(TableColumn<Task, String> param) {
-				final TableCell<Task, String> cell = new TableCell<Task, String>() {
-					private Text text;
-					@Override
-					public void updateItem(String item, boolean empty) {
-						super.updateItem(item, empty);
-						if (!isEmpty()) {
-							text = new Text(item.toString());
-							text.setWrappingWidth(descriptionCol.getWidth() * 2); // Setting the wrapping width to the Text
-							setGraphic(text);
-						}
-					}
-				};
-				return cell;
-			}
-		});
+        descriptionCol.setCellFactory(col -> { // Method courtesy of @James_D on stackoverflow.com
+            final TableCell<Task, String> cell = new TableCell<Task, String>() {
+                private Text text;
+    
+                {
+                    text = new Text();
+                    text.getStyleClass().add("cell-text");
+                }
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        text.setText(item.toString());
+                        text.setWrappingWidth(descriptionCol.getWidth() * 2); // Setting the wrapping width to the Text
+                        setGraphic(text);
+                    }
+                }
+            };
+            return cell;
+        });
         delayCol.setCellValueFactory(new PropertyValueFactory<Task, Long>("delay"));
         table.prefHeightProperty().bind(stage.heightProperty());
         table.prefWidthProperty().bind(stage.widthProperty());

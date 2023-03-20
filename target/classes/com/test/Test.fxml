@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<BorderPane fx:id="bPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" fx:controller="com.test.Controller" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="bPane" prefHeight="1080.0" prefWidth="1920.0" fx:controller="com.test.Controller" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TableView fx:id="table" prefHeight="352.0" prefWidth="543.0">
         <columns>

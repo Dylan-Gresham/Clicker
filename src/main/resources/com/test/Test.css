@@ -3,6 +3,7 @@
     -fx-bgc-alt: #242424;
     -fx-pc: #7C4DFF; /* Deep Purple 50 A200 - Material Design */
     -fx-sc: #448AFF; /* Blue 50 A200 - Material Design */
+    -fx-sc-uf: #588be0;
     -fx-txt: #FFFFFF;
 }
 
@@ -25,7 +26,13 @@
     -fx-table-cell-border-color: -fx-txt;
 }
 
-.table-view .column-header-background, .table-view .column-header-background .filler,.table-view .corner {
+.table-row-cell:selected {
+    -fx-background-color: -fx-pc;
+
+    background-color: -fx-pc;
+}
+
+.table-view .column-header-background, .table-view .column-header-background .filler, .table-view .corner {
     -fx-background-color: -fx-bgc;
 
     background-color: -fx-bgc;
@@ -44,7 +51,6 @@
 .table-row-cell:filled:odd .table-column:filled,
 .table-row-cell:filled:odd .table-column,
 .table-row-cell:odd .table-column:filled {
-
     -fx-background-color: -fx-bgc-alt;
     -fx-selection-bar: -fx-sc;
     -fx-selection-bar-non-focused: -fx-sc;
@@ -65,6 +71,14 @@
     border-radius: 5px;
     padding: 5px;
     font-weight: bold;
+}
+
+#descriptionText {
+    -fx-text-fill: -fx-txt;
+    -fx-font-size: 12px;
+
+    color: -fx-txt;
+    font-size: 12px;
 }
 
 #numRuns {

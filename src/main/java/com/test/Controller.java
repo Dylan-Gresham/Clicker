@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,9 +22,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class Controller extends Test implements Initializable
 {
@@ -47,6 +50,8 @@ public class Controller extends Test implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resources)
     {
+        table.getSelectionModel().setCellSelectionEnabled(true);
+
         list.add(new Task(100.0, 300.0, MouseButton.PRIMARY));
         list.get(0).setName("Click Corner");
         list.get(0).setDescription("Clicks to top left corner of the screen");
@@ -66,6 +71,24 @@ public class Controller extends Test implements Initializable
         buttonCol.setCellValueFactory(new PropertyValueFactory<Task, MouseButton>("button"));
         keyCol.setCellValueFactory(new PropertyValueFactory<Task, String>("keyCode"));
         descriptionCol.setCellValueFactory((new PropertyValueFactory<Task, String>("description")));
+        descriptionCol.setCellFactory(new Callback<TableColumn<Task, String>, TableCell<Task, String>>() {
+			@Override
+			public TableCell<Task, String> call(TableColumn<Task, String> param) {
+				final TableCell<Task, String> cell = new TableCell<Task, String>() {
+					private Text text;
+					@Override
+					public void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						if (!isEmpty()) {
+							text = new Text(item.toString());
+							text.setWrappingWidth(descriptionCol.getWidth() * 2); // Setting the wrapping width to the Text
+							setGraphic(text);
+						}
+					}
+				};
+				return cell;
+			}
+		});
         delayCol.setCellValueFactory(new PropertyValueFactory<Task, Long>("delay"));
         table.prefHeightProperty().bind(stage.heightProperty());
         table.prefWidthProperty().bind(stage.widthProperty());

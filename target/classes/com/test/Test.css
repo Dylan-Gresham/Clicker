@@ -58,8 +58,6 @@
 .table-row-cell:filled:even .table-column,
 .table-row-cell:even .table-column:filled {
     -fx-background-color: -fx-bgc;
-    -fx-selection-bar: -fx-pc;
-    -fx-selection-bar-non-focused: -fx-pc;
 
     background-color: -fx-bgc;
 }
@@ -68,8 +66,6 @@
 .table-row-cell:filled:odd .table-column,
 .table-row-cell:odd .table-column:filled {
     -fx-background-color: -fx-bgc-alt;
-    -fx-selection-bar: -fx-sc;
-    -fx-selection-bar-non-focused: -fx-sc;
 
     background-color: -fx-bgc-alt;
 }

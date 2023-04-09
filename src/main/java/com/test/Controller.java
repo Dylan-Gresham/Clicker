@@ -244,13 +244,21 @@ public class Controller extends Test implements Initializable
     {
         if(numRuns.getText().length() > 0)
         {
-            for(int i = 0; i < Integer.parseInt(numRuns.getText()); i++)
-            {
-                for(int j = 0; j < list.size(); j++)
+            int runs = 0;
+            try {
+                runs = Integer.parseInt(numRuns.getText());
+
+                for(int i = 0; i < runs; i++)
                 {
-                    list.get(j).executeTask();
+                    for(int j = 0; j < list.size(); j++)
+                    {
+                        list.get(j).executeTask();
+                    }
                 }
-            }
+            } catch (Exception e) {
+                System.err.println("Error: Couldn't parse numRuns.");
+                numRuns.setText("0");
+            }  
         } else {
             for(int j = 0; j < list.size(); j++)
             {

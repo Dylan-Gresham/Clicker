@@ -317,7 +317,7 @@ public class Controller extends Test implements Initializable
                 {
                     Scanner lineScan = new Scanner(fileScan.nextLine());
                     lineScan.useDelimiter(",");
-
+                    
                     String name = lineScan.next();
                     double x = Double.parseDouble(lineScan.next());
                     double y = Double.parseDouble(lineScan.next());
@@ -331,14 +331,33 @@ public class Controller extends Test implements Initializable
                         description += ", " + lineScan.next();
                     }
                     lineScan.close();
-
+                    
                     Task task = new Task();
-                    if(!name.equals("")) task.setName(name);
+                    if(!name.equals(""))
+                    {
+                        task.setName(name);
+                    } else {
+                        task.setName("");
+                    }
+                    
                     task.setX(x);
                     task.setY(y);
                     task.setButton(button);
-                    if(!keyCode.equals("")) task.setKeyCode(KeyCode.getKeyCode(keyCode));
-                    if(!description.equals("")) task.setDescription(description);
+                    
+                    if(!keyCode.equals(""))
+                    {
+                        task.setKeyCode(KeyCode.getKeyCode(keyCode));
+                    } else {
+                        task.setKeyCode(null);
+                    }
+
+                    if(!description.equals(""))
+                    {
+                        task.setDescription(description);
+                    } else {
+                        task.setDescription("");
+                    }
+
                     task.setDelay(delay * 1000);
                     list.add(task);
                 }

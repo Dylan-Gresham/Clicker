@@ -20,6 +20,7 @@
 
 .table-cell .cell-text {
     -fx-fill: -fx-txt;
+    -fx-text-alignment: CENTER;
 
     fill: -fx-txt;
 }

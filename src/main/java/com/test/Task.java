@@ -233,7 +233,12 @@ public class Task
      */
     public void setKeyCode(KeyCode newCode)
     {
-        this.keyCode = newCode.toString();
+        if(newCode == null)
+        {
+            this.keyCode = "";
+        } else {
+            this.keyCode = newCode.toString();
+        }
     }
 
     /**

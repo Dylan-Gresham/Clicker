@@ -242,37 +242,21 @@ public class Controller extends Test implements Initializable
 
     @FXML private void runTasksOnA()
     {
-        stopped = true; // Resets stop so if the stop button was pressed before running tasks it won't just not run at all
-
         if(numRuns.getText().length() > 0)
         {
             for(int i = 0; i < Integer.parseInt(numRuns.getText()); i++)
             {
-                if(!stopped)
-                    break;
-            
                 for(int j = 0; j < list.size(); j++)
                 {
-                    if(!stopped)
-                        break;
-
                     list.get(j).executeTask();
                 }
             }
         } else {
             for(int j = 0; j < list.size(); j++)
             {
-                if(!stopped)
-                    break;
-
                 list.get(j).executeTask();
             }
         }
-    }
-
-    @FXML private void stopTasksOnA()
-    {
-        stopped = false;
     }
 
     @FXML private void saveTasksOnA()

@@ -15,7 +15,6 @@ public class Test extends Application {
     protected static Task editTask;
     protected static Stage stage;
     protected static ObservableList<Task> list = FXCollections.observableArrayList();
-    protected static boolean stopped; // True means Tasks will run, false and they won't run
 
     @Override
     public void start(Stage primStage) throws IOException {
@@ -23,13 +22,6 @@ public class Test extends Application {
         stage.setTitle("Clicker");
         mainScene = new Scene(loadFXML("Test"), 640, 480);
         mainScene.getStylesheets().add(getClass().getResource("Test.css").toExternalForm());
-        stopped = true;
-        mainScene.setOnKeyPressed(e -> {
-            if(e.getCharacter().equals("\\"))
-            {
-                stopped = false;
-            }
-        });
 
         stage.setScene(mainScene);
         stage.setMaximized(true);

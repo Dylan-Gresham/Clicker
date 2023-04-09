@@ -122,90 +122,93 @@ public class Controller extends Test implements Initializable
     @FXML private void editTasksOnA() throws IOException
     {
         Task task = table.getSelectionModel().getSelectedItem();
-        index = list.indexOf(task);
-        String name, description, code;
-        MouseButton button;
-        double x, y;
-        Long delay;
-
-        if(task.getName() != null)
+        if(task != null)
         {
-            name = task.getName();
-        } else {
-            name = "";
+            index = list.indexOf(task);
+            String name, description, code;
+            MouseButton button;
+            double x, y;
+            Long delay;
+    
+            if(task.getName() != null)
+            {
+                name = task.getName();
+            } else {
+                name = "";
+            }
+            if(task.getDescription() != null)
+            {
+                description = task.getDescription();
+            } else {
+                description = "";
+            }
+            if(task.getButton() != null)
+            {
+                button = task.getButton();
+            } else {
+                button = MouseButton.NONE;
+            }
+            if(task.getX() != 0.0)
+            {
+                x = task.getX();
+            } else {
+                x = 0.0;
+            }
+            if(task.getY() != 0.0)
+            {
+                y = task.getY();
+            } else {
+                y = 0.0;
+            }
+            if(task.getCode() != null)
+            {
+                code = task.getCode();
+            } else {
+                code = "";
+            }
+            if(task.getDelay() != null)
+            {
+                delay = task.getDelay();
+            } else {
+                delay = Long.valueOf("0");
+            }
+    
+            editTask = new Task();
+            editTask.setButton(button);
+            editTask.setDelay(delay);
+            if(description.length() > 0)
+            {
+                editTask.setDescription(description);
+            }
+            if(code.length() > 0)
+            {
+                editTask.setKeyCode(KeyCode.getKeyCode(code));
+            }
+            if(name.length() > 0)
+            {
+                editTask.setName(name);
+            }
+            editTask.setX(x);
+            editTask.setY(y);
+    
+            scene = new Scene(loadFXML("ETB"), 640, 480);
+            scene.getStylesheets().add(getClass().getResource("NTB.css").toExternalForm());
+    
+            newStage = new Stage();
+    
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.setTitle("Edit Task");
+            newStage.setMinWidth(400);
+            newStage.setMinHeight(600);
+            newStage.setResizable(false);
+            
+            newStage.setScene(scene);
+            newStage.showAndWait();
+    
+            list.set(index, neTask);
+    
+            table.getItems().setAll(list);
         }
-        if(task.getDescription() != null)
-        {
-            description = task.getDescription();
-        } else {
-            description = "";
-        }
-        if(task.getButton() != null)
-        {
-            button = task.getButton();
-        } else {
-            button = MouseButton.NONE;
-        }
-        if(task.getX() != 0.0)
-        {
-            x = task.getX();
-        } else {
-            x = 0.0;
-        }
-        if(task.getY() != 0.0)
-        {
-            y = task.getY();
-        } else {
-            y = 0.0;
-        }
-        if(task.getCode() != null)
-        {
-            code = task.getCode();
-        } else {
-            code = "";
-        }
-        if(task.getDelay() != null)
-        {
-            delay = task.getDelay();
-        } else {
-            delay = Long.valueOf("0");
-        }
-
-        editTask = new Task();
-        editTask.setButton(button);
-        editTask.setDelay(delay);
-        if(description.length() > 0)
-        {
-            editTask.setDescription(description);
-        }
-        if(code.length() > 0)
-        {
-            editTask.setKeyCode(KeyCode.getKeyCode(code));
-        }
-        if(name.length() > 0)
-        {
-            editTask.setName(name);
-        }
-        editTask.setX(x);
-        editTask.setY(y);
-
-        scene = new Scene(loadFXML("ETB"), 640, 480);
-        scene.getStylesheets().add(getClass().getResource("NTB.css").toExternalForm());
-
-        newStage = new Stage();
-
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        newStage.setTitle("Edit Task");
-        newStage.setMinWidth(400);
-        newStage.setMinHeight(600);
-        newStage.setResizable(false);
-        
-        newStage.setScene(scene);
-        newStage.showAndWait();
-
-        list.set(index, neTask);
-
-        table.getItems().setAll(list);
     }
 
     @FXML private void deleteTasksOnA() throws IOException
@@ -288,10 +291,10 @@ public class Controller extends Test implements Initializable
                 {
                     writer.println(list.get(i).getName() + "," + list.get(i).getX() + "," + list.get(i).getY() + ","
                                     + list.get(i).getButton().toString() + "," + list.get(i).getCode() + ","
-                                    + list.get(i).getDescription());
+                                    + list.get(i).getDescription() + "," + list.get(i).getDelay() / 1000);
                 }
                 writer.close();
-            } catch(FileNotFoundException  excp) {
+            } catch(FileNotFoundException excp) {
                 System.err.println("File not found");
             }
         }
@@ -321,6 +324,7 @@ public class Controller extends Test implements Initializable
                     MouseButton button = MouseButton.valueOf(lineScan.next());
                     String keyCode = lineScan.next();
                     String description = lineScan.next();
+                    long delay = Long.parseLong(lineScan.next());
                     // While loop for description in case it has comma's in it
                     while(lineScan.hasNext())
                     {
@@ -335,6 +339,7 @@ public class Controller extends Test implements Initializable
                     task.setButton(button);
                     if(!keyCode.equals("")) task.setKeyCode(KeyCode.getKeyCode(keyCode));
                     if(!description.equals("")) task.setDescription(description);
+                    task.setDelay(delay * 1000);
                     list.add(task);
                 }
                 fileScan.close();

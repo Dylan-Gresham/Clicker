@@ -104,6 +104,8 @@ public class ETB extends Controller
 
     @FXML private void cancelButtonOnA()
     {
+        neTask = list.get(index);
+
         newStage.close();
     }
 }

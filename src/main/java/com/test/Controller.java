@@ -258,7 +258,7 @@ public class Controller extends Test implements Initializable
             } catch (Exception e) {
                 System.err.println("Error: Couldn't parse numRuns.");
                 numRuns.setText("0");
-            }  
+            }
         } else {
             for(int j = 0; j < list.size(); j++)
             {

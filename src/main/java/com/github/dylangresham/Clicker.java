@@ -225,7 +225,7 @@ public class Clicker extends Application
                     {
                         writer.println(list.get(i).getName() + "," + list.get(i).getX() + "," + list.get(i).getY() + ","
                                        + list.get(i).getButton().toString() + "," + list.get(i).getCode() + ","
-                                       + list.get(i).getDescription() + "," + list.get(i).getDelay());
+                                       + list.get(i).getDelay() + "," + list.get(i).getDescription());
                     }
                     writer.close();
                 } catch(FileNotFoundException  excp) {
@@ -255,13 +255,13 @@ public class Clicker extends Application
                         double y = Double.parseDouble(lineScan.next());
                         MouseButton button = MouseButton.valueOf(lineScan.next());
                         String keyCode = lineScan.next();
+                        long delay = Long.parseLong(lineScan.next());
                         String description = lineScan.next();
                         // While loop for description in case it has comma's in it
                         while(lineScan.hasNext())
                         {
                             description += ", " + lineScan.next();
                         }
-                        long delay = Long.parseLong(lineScan.next());
                         lineScan.close();
 
                         Task task = new Task();

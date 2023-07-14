@@ -1,0 +1,43 @@
+Reset,0.0,0.0,NONE,,1000,Reset cursor position
+Play,663.0,773.0,PRIMARY,,1000,Click Play button
+Expert,1079.0,802.0,PRIMARY,,1000,Go to Expert Maps
+FV,405.0,480.0,PRIMARY,,1000,Choose the Flooded Valley map
+Easy,506.0,358.0,PRIMARY,,1000,Choose Easy difficulty
+Deflation,1023.0,394.0,PRIMARY,,10000,Choose Deflation game mode
+OK,765.0,632.0,PRIMARY,,2000,Hit OK to start placing monkeys
+Choose Adora,590.0,364.0,NONE,U,1000,Choose Adora
+Place Adora,590.0,364.0,PRIMARY,,1000,Place Adora
+Select Sniper,210.0,98.0,NONE,Z,1000,Select Sniper to place
+Place Sniper,210.0,98.0,PRIMARY,,1000,Place first Sniper
+Open S1,210.0,98.0,PRIMARY,,1000,Open Upgrade menu for S1
+Middle Path,1240.0,531.0,PRIMARY,,250,Choose middle path upgrade
+Middle Path 2,1240.0,531.0,PRIMARY,,250,Choose middle path upgrade
+Bottom Path,1240.0,646.0,PRIMARY,,250,Choose bottom path upgrade
+Bottom Path 2,1240.0,646.0,PRIMARY,,250,Choose bottom path upgrade
+Bottom Path 3,1240.0,646.0,PRIMARY,,250,Choose bottom path upgrade
+Bottom Path 4,1240.0,646.0,PRIMARY,,250,Choose bottom path upgrade
+Select Sniper 2,185.0,138.0,NONE,Z,1000,Select Sniper 2 to place
+Place Sniper 2,185.0,138.0,PRIMARY,,1000,Place Sniper 2
+Open S2,185.0,138.0,PRIMARY,,1000,Open Upgrade menu for S2
+Top Path,1240.0,421.0,PRIMARY,,250,Choose top path upgrade
+Top Path 2,1240.0,421.0,PRIMARY,,250,Choose top path upgrade
+Middle Path,1240.0,531.0,PRIMARY,,250,Choose middle path upgrade
+Middle Path 2,1240.0,531.0,PRIMARY,,250,Choose middle path upgrade
+Middle Path 3,1240.0,531.0,PRIMARY,,250,Choose middle path upgrade
+Select Alchemist,135.0,116.0,NONE,F,1000,Select Alchemist to place
+Place Alchemist,135.0,116.0,PRIMARY,,1000,Place Alchemist
+Open Alchemist,135.0,116.0,PRIMARY,,1000,Open Upgrade menu for Alchemist
+Top Path,1240.0,421.0,PRIMARY,,250,Choose top path upgrade
+Top Path 2,1240.0,421.0,PRIMARY,,250,Choose top path upgrade
+Top Path 3,1240.0,421.0,PRIMARY,,250,Choose top path upgrade
+Top Path 4,1240.0,421.0,PRIMARY,,250,Choose top path upgrade
+Middle Path,1240.0,531.0,PRIMARY,,250,Choose middle path upgrade
+Middle Path 2,1240.0,531.0,PRIMARY,,250,Choose middle path upgrade
+Select Engineer,385.0,444.0,NONE,L,1000,Select Engineer to place
+Place Engineer,385.0,444.0,PRIMARY,,1000,Place Engineer
+Open Engineer,385.0,444.0,PRIMARY,,1000,Open Upgrade menu for Engineer
+Top Path,1240.0,421.0,PRIMARY,,250,Choose top path upgrade
+Start,1463.0,830.0,PRIMARY,,250,Start Game
+FF,1463.0,830.0,PRIMARY,,330000,Turn on Fast Forward
+Next,786.0,750.0,PRIMARY,,1000,Click Next button
+Home,577.0,702.0,PRIMARY,,10000,Click Home button

@@ -57,3 +57,20 @@ The move buttons on the right side of the program will move the selected task ar
 * Style New/Edit/Delete task pop-ups
 * Add a stop button
 * Redo visuals of main table screen
+
+## Prerequisites for Using the BTD6 Deflation Script
+
+In order to use the BTD6 Deflation Script you must have:
+
+* Unlocked the expert map Flooded Valley
+* Unlocked Deflation mode on Flooded Valley
+* Unlocked and selected Adora as your hero
+* Minimized BTD6 (alt+enter on Windows) while on the home screen of BTD6
+
+Once all prerequisites have been met, run Clicker, using the 'Open' button open the `btd6-fv-deflation-script.txt` script file, specify the number of iterations you'd like to run, and then hit 'Run'.
+
+<strong>Warning depending on your screen's size and resolution, the coordinates of the screen may be off.</strong>
+
+To correct this, I've provided a simple Java program that can be ran in the console if you download the source code .zip file.
+
+To use this program, download and unzip the source code file. You should get a folder called `Clicker-1.0.0`. Open a VS Code instance and open this folder in VS Code. Under src > main > java > com > github > dylangresham there's a file called `MousePositionFinder.java`. If you run this file in VS Code, the current mouse coordinates will be output to the VS Code terminal. While BTD6 is open (or anything else you want to find coordinates in) hover over the area(s) you want to click and note down the coordinates then edit the tasks either in the Clicker program itself or in the .txt script file.

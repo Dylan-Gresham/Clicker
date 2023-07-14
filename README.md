@@ -65,6 +65,8 @@ In order to use the BTD6 Deflation Script you must have:
 * Unlocked the expert map Flooded Valley
 * Unlocked Deflation mode on Flooded Valley
 * Unlocked and selected Adora as your hero
+* Unlocked some monkey knowledge
+    * I'm unsure specifically what or how much monkey knowledge is required but testing with no monkey knowledge whatsoever (without manually using abilities or inserting ability usage into the script) results in a game over at round 54.
 * Minimized BTD6 (alt+enter on Windows) while on the home screen of BTD6
 
 Once all prerequisites have been met, run Clicker, using the 'Open' button open the `btd6-fv-deflation-script.txt` script file, specify the number of iterations you'd like to run, and then hit 'Run'.

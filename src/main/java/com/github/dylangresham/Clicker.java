@@ -193,7 +193,14 @@ public class Clicker extends Application
             numRuns.setText("1");
         });
         runTasks.setOnAction(e -> {
-            for(int i = 0; i < Integer.parseInt(numRuns.getText()); i++)
+            int runs = 1;
+            try {
+                runs = Integer.parseInt(numRuns.getText());
+            } catch(NumberFormatException ex) {
+                runs = Integer.MAX_VALUE;
+            }
+
+            for(int i = 0; i < runs; i++)
             {
                for(int j = 0; j < list.size(); j++)
                {

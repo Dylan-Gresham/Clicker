@@ -8,7 +8,6 @@ public class Task
 {
     private double x, y;
     private MouseButton button;
-    // private KeyCode keyCode;
     private Robot rob;
     private String description, name, keyCode;
     private Long delay;
@@ -74,10 +73,11 @@ public class Task
         delay = Long.valueOf(0);
     }
 
-    public void executeTask(long delay)
+    public void executeTask()
     {
         if(!keyCode.equals(""))
         {
+            rob.mouseMove(x, y);
             rob.keyType(KeyCode.getKeyCode(keyCode));
             try
             {

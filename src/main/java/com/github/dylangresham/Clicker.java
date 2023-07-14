@@ -50,14 +50,6 @@ public class Clicker extends Application
 
         list = FXCollections.observableArrayList();
         
-        list.add(new Task(100.0, 300.0, MouseButton.PRIMARY));
-        list.get(0).setName("Click Corner");
-        list.get(0).setDescription("Clicks to top left corner of the screen");
-
-        list.add(new Task(KeyCode.A));
-        list.get(1).setName("Type a");
-        list.get(1).setDescription("Types the letter 'a' once");
-        
         TableView<Task> table = new TableView<Task>(list);
         table.setEditable(true);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -205,7 +197,7 @@ public class Clicker extends Application
             {
                for(int j = 0; j < list.size(); j++)
                {
-                    list.get(j).executeTask(3500);
+                    list.get(j).executeTask();
                }
             }
         });
